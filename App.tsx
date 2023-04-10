@@ -6,29 +6,19 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Empty from "./src/components/Empty";
+import AddTodo from './src/components/AddTodo';
 import DateHead from './src/components/DateHead';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
 
 const App = (): JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -42,8 +32,10 @@ const App = (): JSX.Element => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView edges={['bottom']}>
+      <SafeAreaView edges={['bottom']} style={{flex: 1}}>
         <DateHead date={today} />
+        <Empty />
+        <AddTodo />
       </SafeAreaView>
     </SafeAreaProvider>
   );

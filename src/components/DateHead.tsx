@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface Props {
   date: Date
@@ -10,8 +11,12 @@ function DateHead({date}: Props) {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const formatted = `${year}년 ${month}월 ${day}일`;
+
+  const {top} = useSafeAreaInsets();
+
   return (
     <>
+      <View style={[styles.statusBarPlaceholder, {height: top}]} />
       <StatusBar backgroundColor="#26a69a" />
       <View style={styles.block}>
         <Text style={styles.dateText}>{formatted}</Text>
@@ -21,6 +26,9 @@ function DateHead({date}: Props) {
 }
 
 const styles = StyleSheet.create({
+  statusBarPlaceholder: {
+    backgroundColor: '#26a69a',
+  },
   block: {
     padding: 16,
     backgroundColor: '#26a69a',
@@ -30,5 +38,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
 export default DateHead;
