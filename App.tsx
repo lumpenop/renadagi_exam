@@ -7,9 +7,10 @@
 
 import React from 'react';
 import {
+  KeyboardAvoidingView, Platform,
   StyleSheet,
-  useColorScheme,
-} from 'react-native';
+  useColorScheme
+} from "react-native";
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import {
@@ -26,37 +27,28 @@ const App = (): JSX.Element => {
 
   const today = new Date()
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
     <SafeAreaProvider>
-      <SafeAreaView edges={['bottom']} style={{flex: 1}}>
-        <DateHead date={today} />
-        <Empty />
-        <AddTodo />
+      <SafeAreaView edges={['bottom']} style={styles.block}>
+        <KeyboardAvoidingView
+          behavior={Platform.select({ios: 'padding'})}
+          style={styles.avoid}>
+          <DateHead date={today} />
+          <Empty />
+          <AddTodo />
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  block: {
+    flex: 1,
+    backgroundColor: 'white',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  avoid: {
+    flex: 1,
   },
 });
 
