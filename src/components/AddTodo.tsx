@@ -6,13 +6,18 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-  TouchableNativeFeedback, Keyboard
-} from "react-native";
+  TouchableNativeFeedback,
+  Keyboard,
+} from 'react-native';
 
-function AddTodo() {
+interface Props {
+  onInsert: (text: string) => void;
+}
+function AddTodo({onInsert}: Props) {
   const [text, setText] = useState('');
 
   const onPress = () => {
+    onInsert(text);
     setText('');
     Keyboard.dismiss();
   };
@@ -34,17 +39,22 @@ function AddTodo() {
         returnKeyType="done"
       />
       {Platform.select({
-        ios: <TouchableOpacity activeOpacity={0.5} onPress={onPress}>{button}</TouchableOpacity>,
+        ios: (
+          <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+            {button}
+          </TouchableOpacity>
+        ),
         android: (
           <View style={styles.circleWrapper}>
-            <TouchableNativeFeedback onPress={onPress}>{button}</TouchableNativeFeedback>
+            <TouchableNativeFeedback onPress={onPress}>
+              {button}
+            </TouchableNativeFeedback>
           </View>
         ),
       })}
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   block: {
